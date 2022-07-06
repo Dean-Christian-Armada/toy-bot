@@ -1,1 +1,13 @@
-# toy-bot
+# Toy Bot Exam by Iress
+
+## Step by Step Procedure for Running
+1. Ensure that python3 is available in your computer.
+2. Run the Console Application with `python main.py`
+3. Follow and Enter the inputs being asked
+
+## Step by Step Procedure for Running with Docker
+1. Assuming that Docker is installed in your computer. Please follow bullets below for containerization setup.
+    - `$ cd toy-bot`
+    - `$ docker run -it -v=$(pwd):/usr/src/app --workdir=/usr/src/app --name=toy-bot python:3.10.1 bash`
+2. Run the Console Application with `python main.py`
+3. Follow and Enter the inputs being asked
