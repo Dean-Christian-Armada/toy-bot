@@ -1,4 +1,4 @@
-import sys
+from errors import MSGS
 
 
 class ToyBot:
@@ -19,18 +19,27 @@ class ToyBot:
 		valid = False
 		facings = ['NORTH', 'SOUTH', 'WEST', 'EAST']
 		if not x.isdigit():
-			print(f'First value must be a valid number. You entered {x}')
+			print(MSGS['first_value_digit'].format(input=x))
 		elif int(x) >= len(self.x_axis):
-			print(f'First value must be less than {len(self.x_axis)} or else '
-				  f'the bot will fall. You entered {x}')
+			print(
+				MSGS['first_value_less_than'].format(
+					length=len(self.x_axis), input=x
+				)
+			)
 		elif not y.isdigit():
-			print(f'Second value must be a valid number. You entered {y}')
+			print(MSGS['second_value_digit'].format(input=y))
 		elif int(y) >= len(self.y_axis):
-			print(f'Second value must be less than {len(self.y_axis)} or else '
-				  f'the bot will fall. You entered {y}')
+			print(
+				MSGS['second_value_less_than'].format(
+					length=len(self.y_axis), input=y
+				)
+			)
 		elif facing.upper() not in facings:
-			print(f'Third value is invalid. Choices are {",".join(facings)}. '
-				  f'You entered {facing}')
+			print(
+				MSGS['third_value_invalid'].format(
+					facings=",".join(facings), facing=facing
+				)
+			)
 		else:
 			valid = True
 		return valid
@@ -41,7 +50,7 @@ class ToyBot:
 		:param y: initial position on the y-axis
 		:param facing: initial facing position
 			- e.g. NORTH, SOUTH, EAST, WEST
-			- note: West is left as East is righ
+			- note: West is left as East is right
 		"""
 		if not self.validate_place(x, y, facing):
 			return False
@@ -51,12 +60,26 @@ class ToyBot:
 		return True
 
 	def move(self):
-		if self.current_facing in ['NORTH', 'SOUTH']:
-			if self.current_y_pos < len(self.y_axis):
+		if self.current_facing == 'NORTH':
+			if self.current_y_pos < len(self.y_axis) - 1:
 				self.current_y_pos += 1
-		elif self.current_facing in ['WEST', 'EAST']:
-			if self.current_x_pos < len(self.x_axis):
+			else:
+				print(MSGS['move_aborted'])
+		elif self.current_facing == 'SOUTH':
+			if self.current_y_pos > 0:
+				self.current_y_pos -= 1
+			else:
+				print(MSGS['move_aborted'])
+		elif self.current_facing == 'EAST':
+			if self.current_x_pos < len(self.x_axis) - 1:
 				self.current_x_pos += 1
+			else:
+				print(MSGS['move_aborted'])
+		elif self.current_facing == 'WEST':
+			if self.current_x_pos > 0:
+				self.current_x_pos -= 1
+			else:
+				print(MSGS['move_aborted'])
 
 	def left(self):
 		change_positions = {'NORTH': 'WEST', 'SOUTH': 'EAST',
@@ -71,32 +94,34 @@ class ToyBot:
 
 	def report(self):
 		# End
-		print(f'{self.current_x_pos},'
-			  f'{self.current_y_pos},'
-			  f'{self.current_facing}')
+		output = f'{self.current_x_pos},{self.current_y_pos},' \
+				 f'{self.current_facing}'
+		print(output)
+		return output
 
 
-print('====TOYBOT CONSOLE APPLICATION====')
-bot = ToyBot()
-placed = False
-while not placed:
-	starting_place = input('STARTING PLACE(e.g. 0,0,NORTH): ')
-	place = starting_place.replace(' ', '').split(',')
-	placed = bot.place(place[0], place[1], place[2])
-next_action = ''
-while next_action.lower() != 'report':
-	next_action = input(
-		'PLEASE INPUT NEXT ACTION(e.g. PLACE, MOVE, REPORT, LEFT, RIGHT): '
-	)
-	_next_action = next_action.lower()
-	if _next_action == 'place':
-		starting_place = input('IMMEDIATE PLACING(e.g. 0,0,NORTH): ')
+if __name__ == '__main__':
+	print('====TOYBOT CONSOLE APPLICATION====')
+	bot = ToyBot()
+	placed = False
+	while not placed:
+		starting_place = input('STARTING PLACE(e.g. 0,0,NORTH): ')
 		place = starting_place.replace(' ', '').split(',')
 		placed = bot.place(place[0], place[1], place[2])
-	elif bot.actions.get(_next_action):
-		bot.actions[next_action.lower()]()
-	else:
-		print(f'You have input a wrong action: {next_action}')
+	next_action = ''
+	while next_action.lower() != 'report':
+		next_action = input(
+			'PLEASE INPUT NEXT ACTION(e.g. PLACE, MOVE, REPORT, LEFT, RIGHT): '
+		)
+		_next_action = next_action.lower()
+		if _next_action == 'place':
+			starting_place = input('IMMEDIATE PLACING(e.g. 0,0,NORTH): ')
+			place = starting_place.replace(' ', '').split(',')
+			placed = bot.place(place[0], place[1], place[2])
+		elif bot.actions.get(_next_action):
+			bot.actions[next_action.lower()]()
+		else:
+			print(f'You have input a wrong action: {next_action}')
 
 # # TEST 1: 0,1,NORTH
 # bot = ToyBot()
