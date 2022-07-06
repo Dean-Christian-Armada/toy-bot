@@ -11,3 +11,7 @@
     - `$ docker run -it -v=$(pwd):/usr/src/app --workdir=/usr/src/app --name=toy-bot python:3.10.1 bash`
 2. Run the Console Application with `python main.py`
 3. Follow and Enter the inputs being asked
+
+## Step by Step Procedure for Executing Unit Testing Script
+1. Current directory should be the same directory where `main.py` is located
+2. Run `$ python tests.py`

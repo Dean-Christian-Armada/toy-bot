@@ -143,19 +143,20 @@ class SadPathTesting(unittest.TestCase):
         bot.place(x, y, facing)
         bot.move()  # 'y' will be 4 which is the limit
         report_from_valid_move_y = bot.report()
-        # Continuously attempt to move on 'y' axis
+        bot.move()  # Continuously attempt to move on 'y' axis
         bot.move()
-        bot.move()
-        self.assertEqual(report_from_valid_move_y, bot.report())
+        self.assertEqual(report_from_valid_move_y,
+                         bot.report())  # Expected to not move
         bot.move()
         self.assertEqual(report_from_valid_move_y, bot.report())
         bot.right()  # try 'x' axis
         bot.move()  # 'x' will be 4 which is the limit
         report_from_valid_move_x = bot.report()
-        # Continuously attempt to move on 'x' axis
         bot.move()
-        self.assertEqual(report_from_valid_move_x, bot.report())
-        bot.move()
+        # Expected to not move
+        self.assertEqual(report_from_valid_move_x,
+                         bot.report())  # Expected to not move
+        bot.move()  # Continuously attempt to move on 'x' axis
         bot.move()
         self.assertEqual(report_from_valid_move_x, bot.report())
 
