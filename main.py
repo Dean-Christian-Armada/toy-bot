@@ -48,3 +48,25 @@ class ToyBot:
 		print(f'{self.current_x_pos},'
 			  f'{self.current_y_pos},'
 			  f'{self.current_facing}')
+
+
+# TEST 1
+bot = ToyBot()
+bot.place(0, 0, 'NORTH')
+bot.move()
+bot.report()
+
+# TEST 2
+bot = ToyBot()
+bot.place(0, 0, 'NORTH')
+bot.left()
+bot.report()
+
+# TEST 3
+bot = ToyBot()
+bot.place(1, 2, 'EAST')
+bot.move()
+bot.move()
+bot.left()
+bot.move()
+bot.report()
