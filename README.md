@@ -15,4 +15,4 @@
 
 ## Step by Step Procedure for Executing Unit Testing Script
 1. Current directory should be the same directory where `main.py` is located
-2. Run `$ python tests.py`**(if not containerized)** or `$ python3 tests.py`**(if containerized)**
+2. Run `$ python tests.py`**(if containerized)** or `$ python3 tests.py`**(if not containerized)**
