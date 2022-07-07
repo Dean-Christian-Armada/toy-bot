@@ -2,7 +2,7 @@
 
 ## Step by Step Procedure for Running
 1. Ensure that python3 is available in your computer.
-2. Run the Console Application with `python main.py`
+2. Run the Console Application with `$ cd bot && python3 main.py`
 3. Follow and Enter the inputs being asked
 
 ## Step by Step Procedure for Running with Docker
