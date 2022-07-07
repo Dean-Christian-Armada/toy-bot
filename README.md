@@ -1,4 +1,4 @@
-# Toy Bot Exam by Iress
+# Toy Bot Console Application
 
 ## Step by Step Procedure for Running
 1. Ensure that python3 is available in your computer.
